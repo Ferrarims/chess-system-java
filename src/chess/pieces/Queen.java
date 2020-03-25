@@ -1,6 +1,7 @@
 package chess.pieces;
 
 import boardgame.Board;
+import boardgame.Position;
 import chess.ChessPiece;
 import chess.Color;
 
@@ -11,10 +12,96 @@ public class Queen extends ChessPiece {
 	}
 
 	@Override
-	public boolean[][] possibleMoves() {
+	public String toString() {
+		return "Q";
+	}
 
-		
-		
-		return null;
+	@Override
+	public boolean[][] possibleMoves() {
+		boolean[][] mat = new boolean[getBoard().getRows()][getBoard().getColumns()];
+
+		Position p = new Position(0, 0);
+
+		// above
+		p.setValues(position.getRaw() - 1, position.getColumn());
+		while (getBoard().positionExists(p) && !getBoard().thereIsAPiece(p)) {
+			mat[p.getRaw()][p.getColumn()] = true;
+			p.setRaw(p.getRaw() - 1);
+		}
+		if (getBoard().positionExists(p) && isThereOpponentPiece(p)) {
+			mat[p.getRaw()][p.getColumn()] = true;
+		}
+
+		// left
+		p.setValues(position.getRaw(), position.getColumn() - 1);
+		while (getBoard().positionExists(p) && !getBoard().thereIsAPiece(p)) {
+			mat[p.getRaw()][p.getColumn()] = true;
+			p.setColumn(p.getColumn() - 1);
+		}
+		if (getBoard().positionExists(p) && isThereOpponentPiece(p)) {
+			mat[p.getRaw()][p.getColumn()] = true;
+		}
+
+		// right
+		p.setValues(position.getRaw(), position.getColumn() + 1);
+		while (getBoard().positionExists(p) && !getBoard().thereIsAPiece(p)) {
+			mat[p.getRaw()][p.getColumn()] = true;
+			p.setColumn(p.getColumn() + 1);
+		}
+		if (getBoard().positionExists(p) && isThereOpponentPiece(p)) {
+			mat[p.getRaw()][p.getColumn()] = true;
+		}
+
+		// below
+		p.setValues(position.getRaw() + 1, position.getColumn());
+		while (getBoard().positionExists(p) && !getBoard().thereIsAPiece(p)) {
+			mat[p.getRaw()][p.getColumn()] = true;
+			p.setRaw(p.getRaw() + 1);
+		}
+		if (getBoard().positionExists(p) && isThereOpponentPiece(p)) {
+			mat[p.getRaw()][p.getColumn()] = true;
+		}
+
+		// nw
+		p.setValues(position.getRaw() - 1, position.getColumn() - 1);
+		while (getBoard().positionExists(p) && !getBoard().thereIsAPiece(p)) {
+			mat[p.getRaw()][p.getColumn()] = true;
+			p.setValues(p.getRaw() - 1, p.getColumn() - 1);
+		}
+		if (getBoard().positionExists(p) && isThereOpponentPiece(p)) {
+			mat[p.getRaw()][p.getColumn()] = true;
+		}
+
+		// ne
+		p.setValues(position.getRaw() - 1, position.getColumn() + 1);
+		while (getBoard().positionExists(p) && !getBoard().thereIsAPiece(p)) {
+			mat[p.getRaw()][p.getColumn()] = true;
+			p.setValues(p.getRaw() - 1, p.getColumn() + 1);
+		}
+		if (getBoard().positionExists(p) && isThereOpponentPiece(p)) {
+			mat[p.getRaw()][p.getColumn()] = true;
+		}
+
+		// se
+		p.setValues(position.getRaw() + 1, position.getColumn() + 1);
+		while (getBoard().positionExists(p) && !getBoard().thereIsAPiece(p)) {
+			mat[p.getRaw()][p.getColumn()] = true;
+			p.setValues(p.getRaw() + 1, p.getColumn() + 1);
+		}
+		if (getBoard().positionExists(p) && isThereOpponentPiece(p)) {
+			mat[p.getRaw()][p.getColumn()] = true;
+		}
+
+		// sw
+		p.setValues(position.getRaw() + 1, position.getColumn() - 1);
+		while (getBoard().positionExists(p) && !getBoard().thereIsAPiece(p)) {
+			mat[p.getRaw()][p.getColumn()] = true;
+			p.setValues(p.getRaw() + 1, p.getColumn() - 1);
+		}
+		if (getBoard().positionExists(p) && isThereOpponentPiece(p)) {
+			mat[p.getRaw()][p.getColumn()] = true;
+		}
+
+		return mat;
 	}
 }
